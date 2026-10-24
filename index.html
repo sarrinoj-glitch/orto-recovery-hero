@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Орто-Рекавери — первый экран (макет)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&amp;family=Caveat:wght@600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#177E96}a:hover{color:#0F5C6E}
+</style>
+<style>
+html,body{margin:0;background:#DDF8FB}
+#stage{width:1440px;height:900px;transform-origin:top left}
+#wrap{overflow:hidden}
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage">
+<div style="width: 1440px; height: 900px; box-sizing: border-box; position: relative; overflow: hidden; background: #DDF8FB; font-family: Onest, system-ui, sans-serif; color: #212121">
+
+  <div aria-hidden="true" style="position: absolute; left: -200px; top: 380px; width: 720px; height: 720px; border-radius: 50%; background: radial-gradient(circle, rgba(242, 255, 89, 0.55) 0%, rgba(242, 255, 89, 0) 65%)"></div>
+  <div aria-hidden="true" style="position: absolute; right: -160px; top: -200px; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(72, 246, 255, 0.55) 0%, rgba(72, 246, 255, 0) 62%)"></div>
+  <div aria-hidden="true" style="position: absolute; left: 520px; top: 560px; width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(23, 126, 150, 0.22) 0%, rgba(23, 126, 150, 0) 65%)"></div>
+  <svg aria-hidden="true" width="1440" height="900" style="position: absolute; inset: 0; opacity: 0.5">
+    <defs>
+      <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#177E96" opacity="0.28"></circle></pattern>
+    </defs>
+    <rect width="1440" height="900" fill="url(#dots)"></rect>
+  </svg>
+  <div aria-hidden="true" style="position: absolute; right: -230px; top: -250px; width: 780px; height: 780px; border-radius: 50%; border: 24px solid rgba(72, 246, 255, 0.6)"></div>
+  <div aria-hidden="true" style="position: absolute; right: -80px; top: -100px; width: 480px; height: 480px; border-radius: 50%; border: 8px solid rgba(23, 126, 150, 0.25)"></div>
+  <svg aria-hidden="true" viewBox="0 0 1440 200" preserveAspectRatio="none" style="position: absolute; left: 0; bottom: 70px; width: 1440px; height: 200px" fill="none">
+    <path d="M0 140 C 260 40, 480 50, 720 120 S 1180 200, 1440 80" stroke="#48F6FF" stroke-width="6" stroke-linecap="round" opacity="0.8"></path>
+    <path d="M0 168 C 280 75, 500 80, 740 150 S 1170 220, 1440 115" stroke="#177E96" stroke-width="3" stroke-linecap="round" opacity="0.45"></path>
+  </svg>
+
+  <header style="position: relative; margin: 18px 40px 0; display: flex; align-items: center; gap: 36px; padding: 12px 14px 12px 26px; background: rgba(255, 255, 255, 0.82); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 26px; box-shadow: 0 18px 40px -28px rgba(11, 61, 74, 0.5)">
+    <img src="assets/logo-dark.png" alt="Орто-Рекавери" style="height: 50px">
+    <nav style="display: flex; gap: 28px; font-size: 16px">
+      <a href="#" style="color: #212121; text-decoration: none; font-weight: 600">Где болит</a>
+      <a href="#" style="color: #4a5357; text-decoration: none">Врачи</a>
+      <a href="#" style="color: #4a5357; text-decoration: none">Обследование во сне</a>
+      <a href="#" style="color: #4a5357; text-decoration: none">Цены</a>
+      <a href="#" style="color: #4a5357; text-decoration: none">Как добраться</a>
+    </nav>
+    <div style="margin-left: auto; display: flex; align-items: center; gap: 18px">
+      <span style="display: flex; flex-direction: column; align-items: flex-end; line-height: 1.2"><b style="font-size: 16px">+7 (8722) 52-23-33</b><span style="font-size: 12px; color: #5b6266">пн–пт 9–18, сб 9–16</span></span>
+      <a href="#" style="background: #177E96; color: #fff; text-decoration: none; padding: 14px 24px; border-radius: 18px; font-weight: 600; font-size: 15px; box-shadow: 0 10px 22px -10px rgba(23, 126, 150, 0.8)">Записаться</a>
+    </div>
+  </header>
+
+  <div style="position: relative; display: grid; grid-template-columns: 590px 1fr; gap: 40px; padding: 30px 72px 0">
+    <div style="padding-top: 26px">
+      <p style="margin: 0; display: inline-flex; align-items: center; gap: 10px; background: #fff; color: #0F5C6E; padding: 9px 16px 9px 12px; border-radius: 999px; font-size: 15px; font-weight: 500; box-shadow: 0 8px 20px -14px rgba(11, 61, 74, 0.6)">
+        <span style="width: 9px; height: 9px; border-radius: 50%; background: #19AA1E; box-shadow: 0 0 0 4px rgba(25, 170, 30, 0.18)"></span>
+        Центр восстановительной медицины в Махачкале
+      </p>
+      <h1 style="margin: 24px 0 0; font-size: 68px; line-height: 1.0; letter-spacing: -0.04em; font-weight: 800; background: linear-gradient(100deg, #0B3D4A 0%, #177E96 55%, #0F5C6E 100%); -webkit-background-clip: text; background-clip: text; color: transparent">Покажите, где болит. Подскажем врача и цену</h1>
+      <p style="margin: 22px 0 0; font-size: 19px; line-height: 1.55; color: #3d4447; max-width: 520px">Нажмите на точку — увидите, кто ведёт приём, что может назначить врач и сколько это стоит. Запись в один клик или в чате.</p>
+      <div style="display: flex; gap: 12px; margin-top: 30px">
+        <a href="#" style="display: inline-flex; align-items: center; gap: 12px; background: radial-gradient(ellipse 75% 140% at 50% 50%, #2393AD 0%, #177E96 30%, #0F5C6E 65%, #0B3D4A 100%); color: #fff; text-decoration: none; padding: 21px 32px; border-radius: 16px; font-weight: 700; font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 14px 28px -14px rgba(11, 61, 74, 0.75)"><span style="font-size: 13px">Записаться на приём</span>
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#48F6FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
+        <a href="#" style="display: inline-flex; align-items: center; background: #fff; color: #212121; text-decoration: none; padding: 19px 28px; border-radius: 20px; font-weight: 600; font-size: 17px; box-shadow: 0 10px 24px -18px rgba(11, 61, 74, 0.6)">Все цены</a>
+      </div>
+
+      <div style="position: relative; display: flex; align-items: center; gap: 20px; margin-top: 34px; background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 252, 253, 0.92) 55%, rgba(214, 245, 249, 0.9) 100%); border: 1px solid rgba(255, 255, 255, 0.95); border-radius: 24px; padding: 14px 20px 14px 16px; width: fit-content; box-shadow: inset 0 1px 0 #fff, inset 0 -6px 14px -8px rgba(23, 126, 150, 0.25), 0 2px 4px rgba(11, 61, 74, 0.08), 0 22px 40px -22px rgba(11, 61, 74, 0.55); transform: rotate(-1.2deg)">
+        <div style="display: flex; padding-left: 2px">
+          <span style="width: 44px; height: 44px; border-radius: 50%; background: #177E96; color: #fff; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; border: 3px solid #fff">ХА</span>
+          <span style="width: 44px; height: 44px; border-radius: 50%; background: #F2FF59; color: #212121; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; border: 3px solid #fff; margin-left: -12px">КП</span>
+          <span style="width: 44px; height: 44px; border-radius: 50%; background: #FFE3D9; color: #212121; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; border: 3px solid #fff; margin-left: -12px">МЭ</span>
+          <span style="width: 44px; height: 44px; border-radius: 50%; background: #0B3D4A; color: #fff; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; border: 3px solid #fff; margin-left: -12px">КА</span>
+        </div>
+        <div style="line-height: 1.25">
+          <div style="display: flex; align-items: center; gap: 10px">
+            <span style="font-size: 26px; font-weight: 800; letter-spacing: -0.03em; background: linear-gradient(100deg, #0B3D4A 0%, #177E96 100%); -webkit-background-clip: text; background-clip: text; color: transparent">5,0</span>
+            <span aria-label="5 звёзд из 5" style="font-size: 17px; letter-spacing: 1px; background: linear-gradient(180deg, #FFE27A 0%, #F5B400 60%, #D98E00 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 2px 3px rgba(217, 142, 0, 0.45))">★★★★★</span>
+            <span style="display: inline-flex; align-items: center; gap: 6px; margin-left: 4px">
+              <span style="display: inline-flex; align-items: center; gap: 5px; background: linear-gradient(180deg, #2FC236 0%, #19AA1E 100%); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 9px 4px 7px; border-radius: 9px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 4px 8px -4px rgba(25, 170, 30, 0.7)">2ГИС 5,0</span>
+              <span style="display: inline-flex; align-items: center; gap: 5px; background: linear-gradient(180deg, #FF6A4D 0%, #FC3F1D 100%); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 9px; border-radius: 9px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 4px 8px -4px rgba(252, 63, 29, 0.7)">Яндекс 4,9</span>
+            </span>
+          </div>
+          <p style="margin: 4px 0 0; font-size: 13px; color: #4a5357">Ортопеды, невролог, реабилитологи, эндоскопист</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="position: relative; height: 640px">
+      <div style="position: absolute; left: 110px; top: 0; width: 600px; height: 610px; border-radius: 44px; background: linear-gradient(160deg, #FFFFFF 0%, #F2FBFC 55%, #E3F5F8 100%); border: 1px solid #fff; box-shadow: 0 40px 80px -40px rgba(11, 61, 74, 0.55), inset 0 -30px 60px -30px rgba(23, 126, 150, 0.18)"></div>
+      <div aria-hidden="true" style="position: absolute; left: 290px; top: 520px; width: 240px; height: 34px; border-radius: 50%; background: radial-gradient(ellipse, rgba(11, 61, 74, 0.25) 0%, rgba(11, 61, 74, 0) 70%)"></div>
+
+      <svg aria-hidden="true" viewBox="0 0 200 420" style="position: absolute; left: 290px; top: 34px; width: 240px; height: 504px; filter: drop-shadow(0 18px 24px rgba(11, 61, 74, 0.25))" fill="none">
+        <defs>
+          <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#9FEAF2"></stop>
+            <stop offset="1" stop-color="#177E96"></stop>
+          </linearGradient>
+        </defs>
+        <circle cx="100" cy="40" r="25" fill="url(#skin)"></circle>
+        <path d="M100 66 L100 84" stroke="url(#skin)" stroke-width="18" stroke-linecap="round"></path>
+        <path d="M72 88 Q100 80 128 88 L134 196 Q100 208 66 196 Z" fill="url(#skin)"></path>
+        <path d="M72 96 L54 168 L48 232" stroke="url(#skin)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M128 96 L146 168 L152 232" stroke="url(#skin)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M86 200 L83 306 L81 388" stroke="url(#skin)" stroke-width="30" stroke-linecap="round"></path>
+        <path d="M114 200 L117 306 L119 388" stroke="url(#skin)" stroke-width="30" stroke-linecap="round"></path>
+        <path d="M84 100 Q100 94 116 100" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.5"></path>
+        <circle cx="100" cy="138" r="7" fill="#fff" stroke="#0B3D4A" stroke-width="3"></circle>
+        <circle cx="151" cy="168" r="7" fill="#fff" stroke="#0B3D4A" stroke-width="3"></circle>
+        <circle cx="83" cy="306" r="22" fill="rgba(242,255,89,0.35)"></circle>
+        <circle cx="83" cy="306" r="14" fill="rgba(242,255,89,0.6)"></circle>
+        <circle cx="83" cy="306" r="8" fill="#F2FF59" stroke="#0B3D4A" stroke-width="3"></circle>
+        <circle cx="122" cy="396" r="7" fill="#fff" stroke="#0B3D4A" stroke-width="3"></circle>
+      </svg>
+
+      <svg aria-hidden="true" width="760" height="640" style="position: absolute; left: 0; top: 0" fill="none">
+        <path d="M410 103 C 360 100, 330 120, 300 150" stroke="#177E96" stroke-width="2" stroke-dasharray="5 6"></path>
+        <path d="M472 136 C 530 150, 560 180, 600 210" stroke="#177E96" stroke-width="2" stroke-dasharray="5 6"></path>
+        <path d="M443 488 C 500 500, 540 500, 590 470" stroke="#177E96" stroke-width="2" stroke-dasharray="5 6"></path>
+      </svg>
+
+      <div style="position: absolute; left: 150px; top: 120px; display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 16px; padding: 10px 14px 10px 10px; font-size: 14px; white-space: nowrap; box-shadow: 0 14px 28px -18px rgba(11, 61, 74, 0.55)">
+        <span style="width: 34px; height: 34px; border-radius: 10px; background: #DDF8FB; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#177E96" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M8 7h8M7 12h10M8 17h8"></path></svg></span>
+        <span><b style="font-weight: 700">Спина и шея</b><br><span style="color: #5b6266">невролог, 8 000 ₽</span></span>
+      </div>
+      <div style="position: absolute; left: 560px; top: 190px; display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 16px; padding: 10px 14px 10px 10px; font-size: 14px; white-space: nowrap; box-shadow: 0 14px 28px -18px rgba(11, 61, 74, 0.55)">
+        <span style="width: 34px; height: 34px; border-radius: 10px; background: #FFE3D9; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C2563A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11V6a2 2 0 0 1 4 0v5M11 10V5a2 2 0 0 1 4 0v6M15 10V7a2 2 0 0 1 4 0v7a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-3l-2-4a2 2 0 0 1 3-2l1 1"></path></svg></span>
+        <span><b style="font-weight: 700">Плечо и кисть</b><br><span style="color: #5b6266">ортопед, 3 000 ₽</span></span>
+      </div>
+      <div style="position: absolute; left: 555px; top: 440px; display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 16px; padding: 10px 14px 10px 10px; font-size: 14px; white-space: nowrap; box-shadow: 0 14px 28px -18px rgba(11, 61, 74, 0.55)">
+        <span style="width: 34px; height: 34px; border-radius: 10px; background: #F8FFC9; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3c-2 4-2 9 0 13 1 2 3 3 5 3h4a2 2 0 0 0 0-4h-3"></path></svg></span>
+        <span><b style="font-weight: 700">Стопа и пятка</b><br><span style="color: #5b6266">УВТ, 3 000 ₽</span></span>
+      </div>
+
+      <figure style="position: absolute; left: 500px; top: -14px; margin: 0; width: 190px; transform: rotate(4deg)">
+        <img src="assets/reception.jpg" alt="Стойка администратора центра" style="width: 190px; height: 130px; object-fit: cover; object-position: 50% 70%; border-radius: 18px; border: 5px solid #fff; box-shadow: 0 18px 30px -16px rgba(11, 61, 74, 0.6); display: block">
+        <figcaption style="margin-top: 6px; font-family: Caveat, cursive; font-size: 20px; color: #0F5C6E; text-align: center">мы на Имама Шамиля, 35А</figcaption>
+      </figure>
+
+      <div style="position: absolute; left: 0; top: 300px; width: 320px; background: #0B3D4A; color: #fff; border-radius: 26px; padding: 20px 22px; box-shadow: 0 30px 60px -26px rgba(11, 61, 74, 0.85)">
+        <div style="display: flex; align-items: center; justify-content: space-between">
+          <span style="background: #F2FF59; color: #212121; font-size: 13px; font-weight: 700; border-radius: 999px; padding: 4px 11px">Колено</span>
+          <span style="font-size: 12px; color: rgba(255, 255, 255, 0.6)">выбрано на схеме</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-top: 14px">
+          <span style="width: 46px; height: 46px; border-radius: 14px; background: #48F6FF; color: #0B3D4A; font-weight: 800; display: flex; align-items: center; justify-content: center">ХА</span>
+          <span style="line-height: 1.3"><b style="font-size: 16px; font-weight: 600">Хаджалов Абузар Магомедович</b><br><span style="font-size: 13px; color: rgba(255, 255, 255, 0.7)">травматолог-ортопед · ПроДокторов 5,0</span></span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px">
+          <span style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 6px 9px; font-size: 12.5px">Приём 3 000 ₽</span>
+          <span style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 6px 9px; font-size: 12.5px">PRP 10 500 ₽</span>
+          <span style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 6px 9px; font-size: 12.5px">УВТ 3 000 ₽</span>
+          <span style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 6px 9px; font-size: 12.5px">Гиалуроновая кислота 3 000 ₽</span>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.12)">
+          <span style="font-size: 13px; line-height: 1.3; color: rgba(255, 255, 255, 0.75)">Ближайшее окно<br><b style="color: #fff; font-size: 15px">завтра, 16:30</b></span>
+          <a href="#" style="background: #48F6FF; color: #0B3D4A; text-decoration: none; padding: 11px 18px; border-radius: 14px; font-weight: 700; font-size: 14px">Записаться</a>
+        </div>
+      </div>
+
+      <div style="position: absolute; left: 330px; top: 572px; display: flex; align-items: flex-end; gap: 10px">
+        <span style="width: 38px; height: 38px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px -12px rgba(11, 61, 74, 0.6)"><img src="assets/logo-dark.png" alt="" style="width: 30px"></span>
+        <p style="margin: 0; background: #fff; border-radius: 18px 18px 18px 4px; padding: 11px 15px; font-size: 14px; line-height: 1.4; max-width: 300px; box-shadow: 0 16px 30px -18px rgba(11, 61, 74, 0.6)">Здравствуйте! Подскажу цену и запишу к нужному врачу — даже вечером</p>
+      </div>
+
+      <p style="position: absolute; left: 30px; top: 230px; margin: 0; font-family: Caveat, cursive; font-size: 26px; color: #177E96; transform: rotate(-6deg)">нажмите на точку ↘</p>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 74px; background: #0B3D4A; display: flex; align-items: center; justify-content: center; gap: 56px; color: #fff; font-size: 15px">
+    <span style="display: flex; align-items: center; gap: 10px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #48F6FF"></span>Лицензированный медцентр</span>
+    <span style="display: flex; align-items: center; gap: 10px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #F2FF59"></span>Рассрочка без переплат</span>
+    <span style="display: flex; align-items: center; gap: 10px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #48F6FF"></span>Реабилитолог на дом — 4 000 ₽</span>
+    <span style="display: flex; align-items: center; gap: 10px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #F2FF59"></span>Справка для налогового вычета</span>
+    <span style="display: flex; align-items: center; gap: 10px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #48F6FF"></span>Пандус и парковка</span>
+  </div>
+</div>
+</div></div>
+<script>
+// Макет нарисован в 1440×900 — масштабируем под ширину окна
+function fit(){var k=Math.min(window.innerWidth/1440,1.6);var st=document.getElementById('stage');st.style.transform='scale('+k+')';document.getElementById('wrap').style.height=(900*k)+'px';}
+window.addEventListener('resize',fit);fit();
+</script>
+</body>
+</html>
