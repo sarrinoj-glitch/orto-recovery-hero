@@ -6,182 +6,399 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Орто-Рекавери — первый экран (макет)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&amp;family=Caveat:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
-body{margin:0}
-a{color:#177E96}a:hover{color:#0F5C6E}
-</style>
-<style>
-html,body{margin:0;background:#DDF8FB}
-#stage{width:1440px;height:900px;transform-origin:top left}
-#wrap{overflow:hidden}
+  :root { --deep:#0B3D4A; --teal:#177E96; --teal-2:#0F5C6E; --lagoon:#DDF8FB; --neon:#48F6FF; --lime:#F2FF59; --ink:#212121; --muted:#5b6266; }
+  html, body { margin:0; background:var(--lagoon); }
+  #wrap { overflow:hidden; }
+  #stage { width:1440px; height:900px; transform-origin:top left; position:relative; overflow:hidden; background:var(--lagoon); font-family:Onest, system-ui, sans-serif; color:var(--ink); }
+  a { color:var(--teal); }
+  .abs { position:absolute; }
+
+  /* ---------- фон ---------- */
+  .blob { position:absolute; border-radius:50%; animation:drift 18s ease-in-out infinite alternate; }
+  .blob.b1 { left:-200px; top:380px; width:720px; height:720px; background:radial-gradient(circle, rgba(242,255,89,.55) 0%, rgba(242,255,89,0) 65%); }
+  .blob.b2 { right:-160px; top:-200px; width:900px; height:900px; background:radial-gradient(circle, rgba(72,246,255,.55) 0%, rgba(72,246,255,0) 62%); animation-duration:22s; }
+  .blob.b3 { left:520px; top:560px; width:620px; height:620px; background:radial-gradient(circle, rgba(23,126,150,.22) 0%, rgba(23,126,150,0) 65%); animation-duration:26s; }
+  @keyframes drift { from { transform:translate(0,0); } to { transform:translate(40px,-30px); } }
+  .ring-big { position:absolute; right:-230px; top:-250px; width:780px; height:780px; border-radius:50%; border:24px solid rgba(72,246,255,.6); animation:breatheRing 9s ease-in-out infinite; }
+  .ring-small { position:absolute; right:-80px; top:-100px; width:480px; height:480px; border-radius:50%; border:8px solid rgba(23,126,150,.25); }
+  @keyframes breatheRing { 50% { transform:scale(1.03); } }
+
+  /* ---------- шапка ---------- */
+  header { position:relative; margin:18px 40px 0; display:flex; align-items:center; gap:36px; padding:12px 14px 12px 26px; background:rgba(255,255,255,.82); border:1px solid rgba(255,255,255,.9); border-radius:26px; box-shadow:0 18px 40px -28px rgba(11,61,74,.5); backdrop-filter:blur(8px); }
+  header nav { display:flex; gap:28px; font-size:16px; }
+  header nav a { color:#4a5357; text-decoration:none; position:relative; }
+  header nav a.cur { color:var(--ink); font-weight:600; }
+  header nav a::after { content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px; border-radius:2px; background:var(--teal); transform:scaleX(0); transition:transform .25s ease; }
+  header nav a:hover::after, header nav a.cur::after { transform:scaleX(1); }
+  .btn-head { background:var(--teal); color:#fff; text-decoration:none; padding:14px 24px; border-radius:18px; font-weight:600; font-size:15px; box-shadow:0 10px 22px -10px rgba(23,126,150,.8); transition:transform .2s ease; }
+  .btn-head:hover { transform:translateY(-2px); }
+
+  /* ---------- левая колонка ---------- */
+  .pill { margin:0; display:inline-flex; align-items:center; gap:10px; background:#fff; color:var(--teal-2); padding:9px 16px 9px 12px; border-radius:999px; font-size:15px; font-weight:500; box-shadow:0 8px 20px -14px rgba(11,61,74,.6); }
+  .live { width:9px; height:9px; border-radius:50%; background:#19AA1E; position:relative; }
+  .live::after { content:""; position:absolute; inset:-4px; border-radius:50%; background:rgba(25,170,30,.35); animation:ping 2s ease-out infinite; }
+  @keyframes ping { from { transform:scale(.6); opacity:1; } to { transform:scale(2.2); opacity:0; } }
+  h1 { margin:24px 0 0; font-size:68px; line-height:1.0; letter-spacing:-.04em; font-weight:800; }
+  h1 .w { display:inline-block; background:linear-gradient(100deg, #0B3D4A 0%, #177E96 30%, #0F5C6E 55%, #177E96 80%, #0B3D4A 100%); background-size:260% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:wordIn .7s cubic-bezier(.22,1,.36,1) both, sheen 9s ease-in-out infinite; }
+  @keyframes wordIn { from { opacity:0; filter:blur(10px); transform:translateY(18px); } to { opacity:1; filter:blur(0); transform:none; } }
+  @keyframes sheen { 0%,100% { background-position:0% 50%; } 50% { background-position:100% 50%; } }
+  .lead { margin:22px 0 0; font-size:19px; line-height:1.55; color:#3d4447; max-width:520px; animation:fadeUp .8s .55s both; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+  .ctas { display:flex; gap:12px; margin-top:30px; animation:fadeUp .8s .7s both; }
+  .btn-main { position:relative; overflow:hidden; display:inline-flex; align-items:center; gap:12px; background:radial-gradient(ellipse 75% 140% at 50% 50%, #2393AD 0%, #177E96 30%, #0F5C6E 65%, #0B3D4A 100%); color:#fff; text-decoration:none; padding:21px 32px; border-radius:16px; font-weight:700; font-size:13px; letter-spacing:.12em; text-transform:uppercase; text-shadow:0 1px 1px rgba(0,0,0,.3); box-shadow:inset 0 1px 0 rgba(255,255,255,.18), 0 14px 28px -14px rgba(11,61,74,.75); transition:transform .2s ease, box-shadow .2s ease; }
+  .btn-main::after { content:""; position:absolute; top:0; bottom:0; width:60px; left:-80px; background:linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.35) 50%, rgba(255,255,255,0) 100%); transform:skewX(-20deg); animation:shine 5s ease-in-out 2s infinite; }
+  .btn-main:hover { transform:translateY(-2px); box-shadow:inset 0 1px 0 rgba(255,255,255,.18), 0 20px 34px -14px rgba(11,61,74,.85); }
+  .btn-main:hover::after { animation:shine 1s ease-in-out; }
+  .btn-main svg { transition:transform .2s ease; } .btn-main:hover svg { transform:translateX(4px); }
+  @keyframes shine { 0% { left:-80px; } 30%,100% { left:110%; } }
+  .btn-ghost { display:inline-flex; align-items:center; background:#fff; color:var(--ink); text-decoration:none; padding:19px 28px; border-radius:20px; font-weight:600; font-size:17px; box-shadow:0 10px 24px -18px rgba(11,61,74,.6); transition:transform .2s ease; }
+  .btn-ghost:hover { transform:translateY(-2px); }
+
+  .rating { position:relative; display:flex; align-items:center; gap:20px; margin-top:34px; background:linear-gradient(145deg, rgba(255,255,255,.98) 0%, rgba(240,252,253,.92) 55%, rgba(214,245,249,.9) 100%); border:1px solid rgba(255,255,255,.95); border-radius:24px; padding:14px 20px 14px 16px; width:fit-content; box-shadow:inset 0 1px 0 #fff, inset 0 -6px 14px -8px rgba(23,126,150,.25), 0 2px 4px rgba(11,61,74,.08), 0 22px 40px -22px rgba(11,61,74,.55); transform:rotate(-1.2deg); animation:fadeUp .8s .85s both; }
+  .ava { width:44px; height:44px; border-radius:50%; font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; border:3px solid #fff; }
+  .ava + .ava { margin-left:-12px; }
+  .score { font-size:26px; font-weight:800; letter-spacing:-.03em; background:linear-gradient(100deg, #0B3D4A 0%, #177E96 100%); -webkit-background-clip:text; background-clip:text; color:transparent; font-variant-numeric:tabular-nums; }
+  .stars span { display:inline-block; font-size:17px; background:linear-gradient(180deg, #FFE27A 0%, #F5B400 60%, #D98E00 100%); -webkit-background-clip:text; background-clip:text; color:transparent; filter:drop-shadow(0 2px 3px rgba(217,142,0,.45)); animation:starPop .45s cubic-bezier(.34,1.56,.64,1) both; }
+  .stars span:nth-child(1){animation-delay:1.1s}.stars span:nth-child(2){animation-delay:1.2s}.stars span:nth-child(3){animation-delay:1.3s}.stars span:nth-child(4){animation-delay:1.4s}.stars span:nth-child(5){animation-delay:1.5s}
+  @keyframes starPop { from { transform:scale(0) rotate(-40deg); opacity:0; } to { transform:none; opacity:1; } }
+  .badge { display:inline-flex; color:#fff; font-size:12px; font-weight:700; padding:4px 9px; border-radius:9px; box-shadow:inset 0 1px 0 rgba(255,255,255,.35); }
+
+  /* ---------- правая сцена ---------- */
+  .scene { position:relative; height:640px; }
+  .panel { position:absolute; left:110px; top:0; width:600px; height:610px; border-radius:44px; background:linear-gradient(160deg, #FFFFFF 0%, #F2FBFC 55%, #E3F5F8 100%); border:1px solid #fff; box-shadow:0 40px 80px -40px rgba(11,61,74,.55), inset 0 -30px 60px -30px rgba(23,126,150,.18); overflow:hidden; }
+  .panel::before { content:""; position:absolute; inset:0; background-image:radial-gradient(rgba(23,126,150,.16) 1.2px, transparent 1.3px); background-size:18px 18px; mask-image:radial-gradient(ellipse 60% 70% at 50% 45%, #000 30%, transparent 75%); }
+  .scan { position:absolute; left:0; right:0; height:120px; top:-130px; background:linear-gradient(180deg, rgba(72,246,255,0) 0%, rgba(72,246,255,.22) 70%, rgba(72,246,255,.75) 100%); border-bottom:2px solid rgba(72,246,255,.9); animation:scan 7s cubic-bezier(.45,0,.55,1) 1.6s infinite; pointer-events:none; }
+  @keyframes scan { 0% { top:-130px; opacity:0; } 8% { opacity:1; } 55% { top:600px; opacity:1; } 62%,100% { top:600px; opacity:0; } }
+  .floor { position:absolute; left:290px; top:528px; width:240px; height:34px; border-radius:50%; background:radial-gradient(ellipse, rgba(11,61,74,.28) 0%, rgba(11,61,74,0) 70%); animation:floor 4s ease-in-out infinite; }
+  @keyframes floor { 50% { transform:scaleX(.92); opacity:.8; } }
+
+  #figure { position:absolute; left:290px; top:34px; width:240px; height:504px; overflow:visible; filter:drop-shadow(0 18px 24px rgba(11,61,74,.22)); }
+  #upper { animation:breathe 4s ease-in-out infinite; transform-box:fill-box; transform-origin:50% 100%; }
+  @keyframes breathe { 50% { transform:translateY(-1.6px) scaleY(1.008); } }
+  #head { transform-box:fill-box; transform-origin:50% 100%; transition:transform .35s ease-out; }
+  .spine circle { transition:fill .3s ease, opacity .3s ease; }
+  .spine.on circle { fill:#F2FF59; opacity:1; }
+  .joint { transition:opacity .3s ease; }
+
+  .hot { position:absolute; width:44px; height:44px; margin:-22px 0 0 -22px; border:0; padding:0; background:transparent; border-radius:50%; cursor:pointer; }
+  .hot:focus-visible { outline:3px solid var(--teal); outline-offset:3px; }
+  .hot i { position:absolute; inset:14px; border-radius:50%; background:#fff; border:3px solid var(--deep); transition:background .25s ease, transform .25s ease; box-shadow:0 4px 10px -4px rgba(11,61,74,.6); }
+  .hot b, .hot em { position:absolute; inset:12px; border-radius:50%; border:2px solid rgba(23,126,150,.55); animation:ripple 2.4s ease-out infinite; }
+  .hot em { animation-delay:1.2s; }
+  .hot:hover i { transform:scale(1.2); }
+  .hot.on i { background:var(--lime); transform:scale(1.25); }
+  .hot.on b, .hot.on em { border-color:rgba(242,255,89,.95); border-width:3px; }
+  @keyframes ripple { from { transform:scale(.7); opacity:1; } to { transform:scale(2.3); opacity:0; } }
+
+  .beams path.base { stroke:#177E96; stroke-width:2; stroke-dasharray:5 6; opacity:.55; }
+  .beams path.light { stroke:url(#beamGrad); stroke-width:3.5; stroke-linecap:round; stroke-dasharray:26 400; stroke-dashoffset:26; opacity:0; }
+  .beams g.on path.light { animation:beam 1.8s ease-in-out infinite; }
+  .beams g.on path.base { opacity:1; stroke:#0B3D4A; }
+  @keyframes beam { 0% { stroke-dashoffset:26; opacity:1; } 80% { opacity:1; } 100% { stroke-dashoffset:-260; opacity:0; } }
+
+  .call { position:absolute; display:flex; align-items:center; gap:10px; background:#fff; border-radius:16px; padding:10px 14px 10px 10px; font-size:14px; white-space:nowrap; box-shadow:0 14px 28px -18px rgba(11,61,74,.55); cursor:pointer; border:2px solid transparent; transition:border-color .25s ease, box-shadow .25s ease, transform .25s ease; animation:bob 5s ease-in-out infinite; }
+  .call:nth-of-type(2) { animation-delay:-1.6s; } .call:nth-of-type(3) { animation-delay:-3.1s; }
+  .call.on { border-color:var(--teal); box-shadow:0 18px 34px -16px rgba(11,61,74,.7); }
+  .call .ic { width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; }
+  @keyframes bob { 50% { transform:translateY(-5px); } }
+
+  figure.photo { position:absolute; left:500px; top:-14px; margin:0; width:190px; transform:rotate(4deg); animation:fadeUp .9s 1s both; }
+  figure.photo img { width:190px; height:130px; object-fit:cover; object-position:50% 70%; border-radius:18px; border:5px solid #fff; box-shadow:0 18px 30px -16px rgba(11,61,74,.6); display:block; }
+  figure.photo figcaption { margin-top:6px; font-family:Caveat, cursive; font-size:20px; color:var(--teal-2); text-align:center; }
+
+  .doc { position:absolute; left:0; top:300px; width:320px; background:var(--deep); color:#fff; border-radius:26px; padding:20px 22px; box-shadow:0 30px 60px -26px rgba(11,61,74,.85); animation:fadeUp .8s 1.2s both; }
+  .doc .body { transition:opacity .22s ease, transform .22s ease; }
+  .doc.swap .body { opacity:0; transform:translateY(6px); }
+  .tag { background:var(--lime); color:var(--ink); font-size:13px; font-weight:700; border-radius:999px; padding:4px 11px; }
+  .chip { background:rgba(255,255,255,.1); border-radius:10px; padding:6px 9px; font-size:12.5px; }
+  .btn-doc { background:var(--neon); color:var(--deep); text-decoration:none; padding:11px 18px; border-radius:14px; font-weight:700; font-size:14px; transition:transform .2s ease; }
+  .btn-doc:hover { transform:translateY(-2px); }
+
+  .chat { position:absolute; left:330px; top:572px; display:flex; align-items:flex-end; gap:10px; animation:fadeUp .8s 1.6s both; }
+  .chat .av { width:38px; height:38px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 20px -12px rgba(11,61,74,.6); }
+  .bubble { margin:0; background:#fff; border-radius:18px 18px 18px 4px; padding:11px 15px; font-size:14px; line-height:1.4; max-width:300px; box-shadow:0 16px 30px -18px rgba(11,61,74,.6); min-height:20px; }
+  .typing { display:inline-flex; gap:4px; padding:4px 0; }
+  .typing span { width:7px; height:7px; border-radius:50%; background:#9aa6aa; animation:dot 1s ease-in-out infinite; }
+  .typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+  @keyframes dot { 0%,100% { transform:translateY(0); opacity:.5; } 50% { transform:translateY(-4px); opacity:1; } }
+  .msg { animation:fadeUp .4s both; }
+
+  .hand { position:absolute; left:30px; top:230px; margin:0; font-family:Caveat, cursive; font-size:26px; color:var(--teal); transform:rotate(-6deg); animation:nudge 2.6s ease-in-out infinite; }
+  @keyframes nudge { 50% { transform:rotate(-6deg) translate(4px,3px); } }
+
+  /* ---------- строка доверия ---------- */
+  .trust { position:absolute; left:0; right:0; bottom:0; height:74px; background:var(--deep); color:#fff; font-size:15px; overflow:hidden; mask-image:linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%); }
+  .track { display:flex; gap:56px; width:max-content; height:100%; align-items:center; animation:marquee 38s linear infinite; padding-left:56px; }
+  .trust:hover .track { animation-play-state:paused; }
+  .track span { display:flex; align-items:center; gap:10px; white-space:nowrap; }
+  .track span::before { content:""; width:8px; height:8px; border-radius:50%; background:var(--neon); }
+  .track span:nth-child(even)::before { background:var(--lime); }
+  @keyframes marquee { to { transform:translateX(-50%); } }
+  .wave { position:absolute; left:0; bottom:70px; width:1440px; height:200px; }
+  .wave path { stroke-dasharray:1800; stroke-dashoffset:1800; animation:draw 2.4s ease-out .3s forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation:none !important; transition:none !important; }
+    .wave path { stroke-dashoffset:0; }
+    h1 .w { opacity:1; filter:none; }
+  }
 </style>
 </head>
 <body>
 <div id="wrap"><div id="stage">
-<div style="width: 1440px; height: 900px; box-sizing: border-box; position: relative; overflow: hidden; background: #DDF8FB; font-family: Onest, system-ui, sans-serif; color: #212121">
-
-  <div aria-hidden="true" style="position: absolute; left: -200px; top: 380px; width: 720px; height: 720px; border-radius: 50%; background: radial-gradient(circle, rgba(242, 255, 89, 0.55) 0%, rgba(242, 255, 89, 0) 65%)"></div>
-  <div aria-hidden="true" style="position: absolute; right: -160px; top: -200px; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(72, 246, 255, 0.55) 0%, rgba(72, 246, 255, 0) 62%)"></div>
-  <div aria-hidden="true" style="position: absolute; left: 520px; top: 560px; width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(23, 126, 150, 0.22) 0%, rgba(23, 126, 150, 0) 65%)"></div>
-  <svg aria-hidden="true" width="1440" height="900" style="position: absolute; inset: 0; opacity: 0.5">
-    <defs>
-      <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#177E96" opacity="0.28"></circle></pattern>
-    </defs>
-    <rect width="1440" height="900" fill="url(#dots)"></rect>
+  <div class="blob b1" aria-hidden="true"></div>
+  <div class="blob b2" aria-hidden="true"></div>
+  <div class="blob b3" aria-hidden="true"></div>
+  <svg aria-hidden="true" width="1440" height="900" class="abs" style="inset:0;opacity:.5">
+    <defs><pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#177E96" opacity=".28"/></pattern></defs>
+    <rect width="1440" height="900" fill="url(#dots)"/>
   </svg>
-  <div aria-hidden="true" style="position: absolute; right: -230px; top: -250px; width: 780px; height: 780px; border-radius: 50%; border: 24px solid rgba(72, 246, 255, 0.6)"></div>
-  <div aria-hidden="true" style="position: absolute; right: -80px; top: -100px; width: 480px; height: 480px; border-radius: 50%; border: 8px solid rgba(23, 126, 150, 0.25)"></div>
-  <svg aria-hidden="true" viewBox="0 0 1440 200" preserveAspectRatio="none" style="position: absolute; left: 0; bottom: 70px; width: 1440px; height: 200px" fill="none">
-    <path d="M0 140 C 260 40, 480 50, 720 120 S 1180 200, 1440 80" stroke="#48F6FF" stroke-width="6" stroke-linecap="round" opacity="0.8"></path>
-    <path d="M0 168 C 280 75, 500 80, 740 150 S 1170 220, 1440 115" stroke="#177E96" stroke-width="3" stroke-linecap="round" opacity="0.45"></path>
+  <div class="ring-big" aria-hidden="true"></div>
+  <div class="ring-small" aria-hidden="true"></div>
+  <svg class="wave" aria-hidden="true" viewBox="0 0 1440 200" preserveAspectRatio="none" fill="none">
+    <path d="M0 140 C 260 40, 480 50, 720 120 S 1180 200, 1440 80" stroke="#48F6FF" stroke-width="6" stroke-linecap="round" opacity=".8"/>
+    <path d="M0 168 C 280 75, 500 80, 740 150 S 1170 220, 1440 115" stroke="#177E96" stroke-width="3" stroke-linecap="round" opacity=".45"/>
   </svg>
 
-  <header style="position: relative; margin: 18px 40px 0; display: flex; align-items: center; gap: 36px; padding: 12px 14px 12px 26px; background: rgba(255, 255, 255, 0.82); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 26px; box-shadow: 0 18px 40px -28px rgba(11, 61, 74, 0.5)">
-    <img src="assets/logo-dark.png" alt="Орто-Рекавери" style="height: 50px">
-    <nav style="display: flex; gap: 28px; font-size: 16px">
-      <a href="#" style="color: #212121; text-decoration: none; font-weight: 600">Где болит</a>
-      <a href="#" style="color: #4a5357; text-decoration: none">Врачи</a>
-      <a href="#" style="color: #4a5357; text-decoration: none">Обследование во сне</a>
-      <a href="#" style="color: #4a5357; text-decoration: none">Цены</a>
-      <a href="#" style="color: #4a5357; text-decoration: none">Как добраться</a>
+  <header>
+    <img src="assets/logo-dark.png" alt="Орто-Рекавери" style="height:50px">
+    <nav>
+      <a href="#" class="cur">Где болит</a>
+      <a href="#">Врачи</a>
+      <a href="#">Обследование во сне</a>
+      <a href="#">Цены</a>
+      <a href="#">Как добраться</a>
     </nav>
-    <div style="margin-left: auto; display: flex; align-items: center; gap: 18px">
-      <span style="display: flex; flex-direction: column; align-items: flex-end; line-height: 1.2"><b style="font-size: 16px">+7 (8722) 52-23-33</b><span style="font-size: 12px; color: #5b6266">пн–пт 9–18, сб 9–16</span></span>
-      <a href="#" style="background: #177E96; color: #fff; text-decoration: none; padding: 14px 24px; border-radius: 18px; font-weight: 600; font-size: 15px; box-shadow: 0 10px 22px -10px rgba(23, 126, 150, 0.8)">Записаться</a>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:18px">
+      <span style="display:flex;flex-direction:column;align-items:flex-end;line-height:1.2"><b style="font-size:16px">+7 (8722) 52-23-33</b><span style="font-size:12px;color:#5b6266">пн–пт 9–18, сб 9–16</span></span>
+      <a href="#" class="btn-head">Записаться</a>
     </div>
   </header>
 
-  <div style="position: relative; display: grid; grid-template-columns: 590px 1fr; gap: 40px; padding: 30px 72px 0">
-    <div style="padding-top: 26px">
-      <p style="margin: 0; display: inline-flex; align-items: center; gap: 10px; background: #fff; color: #0F5C6E; padding: 9px 16px 9px 12px; border-radius: 999px; font-size: 15px; font-weight: 500; box-shadow: 0 8px 20px -14px rgba(11, 61, 74, 0.6)">
-        <span style="width: 9px; height: 9px; border-radius: 50%; background: #19AA1E; box-shadow: 0 0 0 4px rgba(25, 170, 30, 0.18)"></span>
-        Центр восстановительной медицины в Махачкале
-      </p>
-      <h1 style="margin: 24px 0 0; font-size: 68px; line-height: 1.0; letter-spacing: -0.04em; font-weight: 800; background: linear-gradient(100deg, #0B3D4A 0%, #177E96 55%, #0F5C6E 100%); -webkit-background-clip: text; background-clip: text; color: transparent">Покажите, где болит. Подскажем врача и цену</h1>
-      <p style="margin: 22px 0 0; font-size: 19px; line-height: 1.55; color: #3d4447; max-width: 520px">Нажмите на точку — увидите, кто ведёт приём, что может назначить врач и сколько это стоит. Запись в один клик или в чате.</p>
-      <div style="display: flex; gap: 12px; margin-top: 30px">
-        <a href="#" style="display: inline-flex; align-items: center; gap: 12px; background: radial-gradient(ellipse 75% 140% at 50% 50%, #2393AD 0%, #177E96 30%, #0F5C6E 65%, #0B3D4A 100%); color: #fff; text-decoration: none; padding: 21px 32px; border-radius: 16px; font-weight: 700; font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 14px 28px -14px rgba(11, 61, 74, 0.75)"><span style="font-size: 13px">Записаться на приём</span>
-          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#48F6FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+  <div style="position:relative;display:grid;grid-template-columns:590px 1fr;gap:40px;padding:30px 72px 0">
+    <div style="padding-top:26px">
+      <p class="pill"><span class="live"></span>Центр восстановительной медицины в Махачкале</p>
+      <h1 id="title">Покажите, где болит. Подскажем врача и цену</h1>
+      <p class="lead">Нажмите на точку — увидите, кто ведёт приём, что может назначить врач и сколько это стоит. Запись в один клик или в чате.</p>
+      <div class="ctas">
+        <a href="#" class="btn-main"><span>Записаться на приём</span>
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#48F6FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="#" style="display: inline-flex; align-items: center; background: #fff; color: #212121; text-decoration: none; padding: 19px 28px; border-radius: 20px; font-weight: 600; font-size: 17px; box-shadow: 0 10px 24px -18px rgba(11, 61, 74, 0.6)">Все цены</a>
+        <a href="#" class="btn-ghost">Все цены</a>
       </div>
-
-      <div style="position: relative; display: flex; align-items: center; gap: 20px; margin-top: 34px; background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 252, 253, 0.92) 55%, rgba(214, 245, 249, 0.9) 100%); border: 1px solid rgba(255, 255, 255, 0.95); border-radius: 24px; padding: 14px 20px 14px 16px; width: fit-content; box-shadow: inset 0 1px 0 #fff, inset 0 -6px 14px -8px rgba(23, 126, 150, 0.25), 0 2px 4px rgba(11, 61, 74, 0.08), 0 22px 40px -22px rgba(11, 61, 74, 0.55); transform: rotate(-1.2deg)">
-        <div style="display: flex; padding-left: 2px">
-          <span style="width: 44px; height: 44px; border-radius: 50%; background: #177E96; color: #fff; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; border: 3px solid #fff">ХА</span>
-          <span style="width: 44px; height: 44px; border-radius: 50%; background: #F2FF59; color: #212121; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; border: 3px solid #fff; margin-left: -12px">КП</span>
-          <span style="width: 44px; height: 44px; border-radius: 50%; background: #FFE3D9; color: #212121; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; border: 3px solid #fff; margin-left: -12px">МЭ</span>
-          <span style="width: 44px; height: 44px; border-radius: 50%; background: #0B3D4A; color: #fff; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; border: 3px solid #fff; margin-left: -12px">КА</span>
+      <div class="rating">
+        <div style="display:flex;padding-left:2px">
+          <span class="ava" style="background:#177E96;color:#fff">ХА</span>
+          <span class="ava" style="background:#F2FF59;color:#212121">КП</span>
+          <span class="ava" style="background:#FFE3D9;color:#212121">МЭ</span>
+          <span class="ava" style="background:#0B3D4A;color:#fff">КА</span>
         </div>
-        <div style="line-height: 1.25">
-          <div style="display: flex; align-items: center; gap: 10px">
-            <span style="font-size: 26px; font-weight: 800; letter-spacing: -0.03em; background: linear-gradient(100deg, #0B3D4A 0%, #177E96 100%); -webkit-background-clip: text; background-clip: text; color: transparent">5,0</span>
-            <span aria-label="5 звёзд из 5" style="font-size: 17px; letter-spacing: 1px; background: linear-gradient(180deg, #FFE27A 0%, #F5B400 60%, #D98E00 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 2px 3px rgba(217, 142, 0, 0.45))">★★★★★</span>
-            <span style="display: inline-flex; align-items: center; gap: 6px; margin-left: 4px">
-              <span style="display: inline-flex; align-items: center; gap: 5px; background: linear-gradient(180deg, #2FC236 0%, #19AA1E 100%); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 9px 4px 7px; border-radius: 9px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 4px 8px -4px rgba(25, 170, 30, 0.7)">2ГИС 5,0</span>
-              <span style="display: inline-flex; align-items: center; gap: 5px; background: linear-gradient(180deg, #FF6A4D 0%, #FC3F1D 100%); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 9px; border-radius: 9px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 4px 8px -4px rgba(252, 63, 29, 0.7)">Яндекс 4,9</span>
+        <div style="line-height:1.25">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="score" id="score">5,0</span>
+            <span class="stars" aria-label="5 звёзд из 5"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></span>
+            <span style="display:inline-flex;gap:6px;margin-left:4px">
+              <span class="badge" style="background:linear-gradient(180deg,#2FC236,#19AA1E)">2ГИС 5,0</span>
+              <span class="badge" style="background:linear-gradient(180deg,#FF6A4D,#FC3F1D)">Яндекс 4,9</span>
             </span>
           </div>
-          <p style="margin: 4px 0 0; font-size: 13px; color: #4a5357">Ортопеды, невролог, реабилитологи, эндоскопист</p>
+          <p style="margin:4px 0 0;font-size:13px;color:#4a5357">Ортопеды, невролог, реабилитологи, эндоскопист</p>
         </div>
       </div>
     </div>
 
-    <div style="position: relative; height: 640px">
-      <div style="position: absolute; left: 110px; top: 0; width: 600px; height: 610px; border-radius: 44px; background: linear-gradient(160deg, #FFFFFF 0%, #F2FBFC 55%, #E3F5F8 100%); border: 1px solid #fff; box-shadow: 0 40px 80px -40px rgba(11, 61, 74, 0.55), inset 0 -30px 60px -30px rgba(23, 126, 150, 0.18)"></div>
-      <div aria-hidden="true" style="position: absolute; left: 290px; top: 520px; width: 240px; height: 34px; border-radius: 50%; background: radial-gradient(ellipse, rgba(11, 61, 74, 0.25) 0%, rgba(11, 61, 74, 0) 70%)"></div>
+    <div class="scene" id="scene">
+      <div class="panel"><div class="scan" aria-hidden="true"></div></div>
+      <div class="floor" aria-hidden="true"></div>
 
-      <svg aria-hidden="true" viewBox="0 0 200 420" style="position: absolute; left: 290px; top: 34px; width: 240px; height: 504px; filter: drop-shadow(0 18px 24px rgba(11, 61, 74, 0.25))" fill="none">
+      <!-- Человечек: один источник света слева, суставы, позвоночник, стопы -->
+      <svg id="figure" viewBox="0 0 200 420" aria-hidden="true" fill="none">
         <defs>
-          <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#9FEAF2"></stop>
-            <stop offset="1" stop-color="#177E96"></stop>
+          <linearGradient id="skin" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="160" y2="0">
+            <stop offset="0" stop-color="#B8F2F8"/>
+            <stop offset=".45" stop-color="#5CC6D8"/>
+            <stop offset="1" stop-color="#177E96"/>
           </linearGradient>
+          <linearGradient id="skinDeep" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="160" y2="0">
+            <stop offset="0" stop-color="#8FE3EE"/>
+            <stop offset=".5" stop-color="#3FAFC5"/>
+            <stop offset="1" stop-color="#0F5C6E"/>
+          </linearGradient>
+          <radialGradient id="kneeGlow"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".75"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
         </defs>
-        <circle cx="100" cy="40" r="25" fill="url(#skin)"></circle>
-        <path d="M100 66 L100 84" stroke="url(#skin)" stroke-width="18" stroke-linecap="round"></path>
-        <path d="M72 88 Q100 80 128 88 L134 196 Q100 208 66 196 Z" fill="url(#skin)"></path>
-        <path d="M72 96 L54 168 L48 232" stroke="url(#skin)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M128 96 L146 168 L152 232" stroke="url(#skin)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M86 200 L83 306 L81 388" stroke="url(#skin)" stroke-width="30" stroke-linecap="round"></path>
-        <path d="M114 200 L117 306 L119 388" stroke="url(#skin)" stroke-width="30" stroke-linecap="round"></path>
-        <path d="M84 100 Q100 94 116 100" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.5"></path>
-        <circle cx="100" cy="138" r="7" fill="#fff" stroke="#0B3D4A" stroke-width="3"></circle>
-        <circle cx="151" cy="168" r="7" fill="#fff" stroke="#0B3D4A" stroke-width="3"></circle>
-        <circle cx="83" cy="306" r="22" fill="rgba(242,255,89,0.35)"></circle>
-        <circle cx="83" cy="306" r="14" fill="rgba(242,255,89,0.6)"></circle>
-        <circle cx="83" cy="306" r="8" fill="#F2FF59" stroke="#0B3D4A" stroke-width="3"></circle>
-        <circle cx="122" cy="396" r="7" fill="#fff" stroke="#0B3D4A" stroke-width="3"></circle>
+        <!-- ноги -->
+        <path d="M88 200 L85 300" stroke="url(#skinDeep)" stroke-width="28" stroke-linecap="round"/>
+        <path d="M112 200 L115 300" stroke="url(#skinDeep)" stroke-width="28" stroke-linecap="round"/>
+        <path d="M85 300 L83 384" stroke="url(#skin)" stroke-width="22" stroke-linecap="round"/>
+        <path d="M115 300 L117 384" stroke="url(#skin)" stroke-width="22" stroke-linecap="round"/>
+        <ellipse cx="77" cy="394" rx="15" ry="7" fill="url(#skinDeep)"/>
+        <ellipse cx="123" cy="394" rx="15" ry="7" fill="url(#skinDeep)"/>
+        <circle class="joint" cx="85" cy="300" r="12" fill="url(#kneeGlow)"/>
+        <circle class="joint" cx="115" cy="300" r="12" fill="url(#kneeGlow)"/>
+        <g id="upper">
+          <!-- руки -->
+          <path d="M60 92 C 52 120, 46 140, 44 166 C 42 190, 42 206, 42 224" stroke="url(#skin)" stroke-width="20" stroke-linecap="round"/>
+          <path d="M140 92 C 148 120, 154 140, 156 166 C 158 190, 158 206, 158 224" stroke="url(#skinDeep)" stroke-width="20" stroke-linecap="round"/>
+          <circle cx="42" cy="233" r="9" fill="url(#skin)"/>
+          <circle cx="158" cy="233" r="9" fill="url(#skinDeep)"/>
+          <circle class="joint" cx="44" cy="166" r="9" fill="url(#kneeGlow)"/>
+          <circle class="joint" cx="156" cy="166" r="9" fill="url(#kneeGlow)"/>
+          <!-- торс -->
+          <path d="M62 84 C 78 74, 122 74, 138 84 C 147 90, 148 100, 146 112 L 138 186 C 136 200, 126 206, 114 206 L 86 206 C 74 206, 64 200, 62 186 L 54 112 C 52 100, 53 90, 62 84 Z" fill="url(#skin)"/>
+          <path d="M66 96 C 62 120, 62 150, 66 180" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".45"/>
+          <path d="M84 98 Q100 92 116 98" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+          <g class="spine" id="spine">
+            <circle cx="100" cy="104" r="2.6" fill="#fff" opacity=".55"/><circle cx="100" cy="114" r="2.6" fill="#fff" opacity=".55"/><circle cx="100" cy="124" r="2.6" fill="#fff" opacity=".55"/><circle cx="100" cy="134" r="2.6" fill="#fff" opacity=".55"/><circle cx="100" cy="144" r="2.6" fill="#fff" opacity=".55"/><circle cx="100" cy="154" r="2.6" fill="#fff" opacity=".55"/><circle cx="100" cy="164" r="2.6" fill="#fff" opacity=".55"/><circle cx="100" cy="174" r="2.6" fill="#fff" opacity=".55"/><circle cx="100" cy="184" r="2.6" fill="#fff" opacity=".55"/><circle cx="100" cy="194" r="2.6" fill="#fff" opacity=".55"/>
+          </g>
+          <!-- шея и голова -->
+          <rect x="92" y="56" width="16" height="20" rx="7" fill="url(#skinDeep)"/>
+          <g id="head">
+            <circle cx="100" cy="36" r="23" fill="url(#skin)"/>
+            <path d="M86 26 Q92 16 104 15" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+          </g>
+        </g>
       </svg>
 
-      <svg aria-hidden="true" width="760" height="640" style="position: absolute; left: 0; top: 0" fill="none">
-        <path d="M410 103 C 360 100, 330 120, 300 150" stroke="#177E96" stroke-width="2" stroke-dasharray="5 6"></path>
-        <path d="M472 136 C 530 150, 560 180, 600 210" stroke="#177E96" stroke-width="2" stroke-dasharray="5 6"></path>
-        <path d="M443 488 C 500 500, 540 500, 590 470" stroke="#177E96" stroke-width="2" stroke-dasharray="5 6"></path>
+      <!-- Линии от точек к подписям -->
+      <svg class="beams abs" width="760" height="640" style="left:0;top:0" aria-hidden="true" fill="none">
+        <defs><linearGradient id="beamGrad"><stop offset="0" stop-color="#48F6FF" stop-opacity="0"/><stop offset=".5" stop-color="#48F6FF"/><stop offset="1" stop-color="#F2FF59"/></linearGradient></defs>
+        <g data-area="back"><path class="base" d="M410 202 C 385 190, 365 165, 342 150"/><path class="light" d="M410 202 C 385 190, 365 165, 342 150"/></g>
+        <g data-area="arm"><path class="base" d="M477 233 C 505 232, 530 224, 558 217"/><path class="light" d="M477 233 C 505 232, 530 224, 558 217"/></g>
+        <g data-area="foot"><path class="base" d="M433 507 C 480 507, 520 490, 553 469"/><path class="light" d="M433 507 C 480 507, 520 490, 553 469"/></g>
+        <g data-area="knee"><path class="base" d="M390 394 C 365 392, 345 388, 322 384"/><path class="light" d="M390 394 C 365 392, 345 388, 322 384"/></g>
       </svg>
 
-      <div style="position: absolute; left: 150px; top: 120px; display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 16px; padding: 10px 14px 10px 10px; font-size: 14px; white-space: nowrap; box-shadow: 0 14px 28px -18px rgba(11, 61, 74, 0.55)">
-        <span style="width: 34px; height: 34px; border-radius: 10px; background: #DDF8FB; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#177E96" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M8 7h8M7 12h10M8 17h8"></path></svg></span>
-        <span><b style="font-weight: 700">Спина и шея</b><br><span style="color: #5b6266">невролог, 8 000 ₽</span></span>
+      <button class="hot" data-area="back" style="left:410px;top:202px" aria-label="Спина и шея"><b></b><em></em><i></i></button>
+      <button class="hot" data-area="arm" style="left:477px;top:233px" aria-label="Плечо и кисть"><b></b><em></em><i></i></button>
+      <button class="hot" data-area="knee" style="left:390px;top:394px" aria-label="Колено"><b></b><em></em><i></i></button>
+      <button class="hot" data-area="foot" style="left:433px;top:507px" aria-label="Стопа и пятка"><b></b><em></em><i></i></button>
+
+      <div class="call" data-area="back" style="left:150px;top:120px">
+        <span class="ic" style="background:#DDF8FB"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#177E96" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M8 7h8M7 12h10M8 17h8"/></svg></span>
+        <span><b style="font-weight:700">Спина и шея</b><br><span style="color:#5b6266">невролог, 8 000 ₽</span></span>
       </div>
-      <div style="position: absolute; left: 560px; top: 190px; display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 16px; padding: 10px 14px 10px 10px; font-size: 14px; white-space: nowrap; box-shadow: 0 14px 28px -18px rgba(11, 61, 74, 0.55)">
-        <span style="width: 34px; height: 34px; border-radius: 10px; background: #FFE3D9; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C2563A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11V6a2 2 0 0 1 4 0v5M11 10V5a2 2 0 0 1 4 0v6M15 10V7a2 2 0 0 1 4 0v7a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-3l-2-4a2 2 0 0 1 3-2l1 1"></path></svg></span>
-        <span><b style="font-weight: 700">Плечо и кисть</b><br><span style="color: #5b6266">ортопед, 3 000 ₽</span></span>
+      <div class="call" data-area="arm" style="left:560px;top:190px">
+        <span class="ic" style="background:#FFE3D9"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C2563A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11V6a2 2 0 0 1 4 0v5M11 10V5a2 2 0 0 1 4 0v6M15 10V7a2 2 0 0 1 4 0v7a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-3l-2-4a2 2 0 0 1 3-2l1 1"/></svg></span>
+        <span><b style="font-weight:700">Плечо и кисть</b><br><span style="color:#5b6266">ортопед, 3 000 ₽</span></span>
       </div>
-      <div style="position: absolute; left: 555px; top: 440px; display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 16px; padding: 10px 14px 10px 10px; font-size: 14px; white-space: nowrap; box-shadow: 0 14px 28px -18px rgba(11, 61, 74, 0.55)">
-        <span style="width: 34px; height: 34px; border-radius: 10px; background: #F8FFC9; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3c-2 4-2 9 0 13 1 2 3 3 5 3h4a2 2 0 0 0 0-4h-3"></path></svg></span>
-        <span><b style="font-weight: 700">Стопа и пятка</b><br><span style="color: #5b6266">УВТ, 3 000 ₽</span></span>
+      <div class="call" data-area="foot" style="left:555px;top:440px">
+        <span class="ic" style="background:#F8FFC9"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3c-2 4-2 9 0 13 1 2 3 3 5 3h4a2 2 0 0 0 0-4h-3"/></svg></span>
+        <span><b style="font-weight:700">Стопа и пятка</b><br><span style="color:#5b6266">УВТ, 3 000 ₽</span></span>
       </div>
 
-      <figure style="position: absolute; left: 500px; top: -14px; margin: 0; width: 190px; transform: rotate(4deg)">
-        <img src="assets/reception.jpg" alt="Стойка администратора центра" style="width: 190px; height: 130px; object-fit: cover; object-position: 50% 70%; border-radius: 18px; border: 5px solid #fff; box-shadow: 0 18px 30px -16px rgba(11, 61, 74, 0.6); display: block">
-        <figcaption style="margin-top: 6px; font-family: Caveat, cursive; font-size: 20px; color: #0F5C6E; text-align: center">мы на Имама Шамиля, 35А</figcaption>
+      <figure class="photo">
+        <img src="assets/reception.jpg" alt="Стойка администратора центра">
+        <figcaption>мы на Имама Шамиля, 35А</figcaption>
       </figure>
 
-      <div style="position: absolute; left: 0; top: 300px; width: 320px; background: #0B3D4A; color: #fff; border-radius: 26px; padding: 20px 22px; box-shadow: 0 30px 60px -26px rgba(11, 61, 74, 0.85)">
-        <div style="display: flex; align-items: center; justify-content: space-between">
-          <span style="background: #F2FF59; color: #212121; font-size: 13px; font-weight: 700; border-radius: 999px; padding: 4px 11px">Колено</span>
-          <span style="font-size: 12px; color: rgba(255, 255, 255, 0.6)">выбрано на схеме</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 12px; margin-top: 14px">
-          <span style="width: 46px; height: 46px; border-radius: 14px; background: #48F6FF; color: #0B3D4A; font-weight: 800; display: flex; align-items: center; justify-content: center">ХА</span>
-          <span style="line-height: 1.3"><b style="font-size: 16px; font-weight: 600">Хаджалов Абузар Магомедович</b><br><span style="font-size: 13px; color: rgba(255, 255, 255, 0.7)">травматолог-ортопед · ПроДокторов 5,0</span></span>
-        </div>
-        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px">
-          <span style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 6px 9px; font-size: 12.5px">Приём 3 000 ₽</span>
-          <span style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 6px 9px; font-size: 12.5px">PRP 10 500 ₽</span>
-          <span style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 6px 9px; font-size: 12.5px">УВТ 3 000 ₽</span>
-          <span style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 6px 9px; font-size: 12.5px">Гиалуроновая кислота 3 000 ₽</span>
-        </div>
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.12)">
-          <span style="font-size: 13px; line-height: 1.3; color: rgba(255, 255, 255, 0.75)">Ближайшее окно<br><b style="color: #fff; font-size: 15px">завтра, 16:30</b></span>
-          <a href="#" style="background: #48F6FF; color: #0B3D4A; text-decoration: none; padding: 11px 18px; border-radius: 14px; font-weight: 700; font-size: 14px">Записаться</a>
+      <div class="doc" id="doc" aria-live="polite">
+        <div class="body">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span class="tag" id="d-tag">Колено</span>
+            <span style="font-size:12px;color:rgba(255,255,255,.6)">выбрано на схеме</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:14px">
+            <span id="d-ini" style="width:46px;height:46px;border-radius:14px;background:#48F6FF;color:#0B3D4A;font-weight:800;display:flex;align-items:center;justify-content:center">ХА</span>
+            <span style="line-height:1.3"><b id="d-name" style="font-size:16px;font-weight:600">Хаджалов Абузар Магомедович</b><br><span id="d-role" style="font-size:13px;color:rgba(255,255,255,.7)">травматолог-ортопед · ПроДокторов 5,0</span></span>
+          </div>
+          <div id="d-chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)">
+            <span style="font-size:13px;line-height:1.3;color:rgba(255,255,255,.75)">Ближайшее окно<br><b id="d-slot" style="color:#fff;font-size:15px">завтра, 16:30</b></span>
+            <a href="#" class="btn-doc">Записаться</a>
+          </div>
         </div>
       </div>
 
-      <div style="position: absolute; left: 330px; top: 572px; display: flex; align-items: flex-end; gap: 10px">
-        <span style="width: 38px; height: 38px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px -12px rgba(11, 61, 74, 0.6)"><img src="assets/logo-dark.png" alt="" style="width: 30px"></span>
-        <p style="margin: 0; background: #fff; border-radius: 18px 18px 18px 4px; padding: 11px 15px; font-size: 14px; line-height: 1.4; max-width: 300px; box-shadow: 0 16px 30px -18px rgba(11, 61, 74, 0.6)">Здравствуйте! Подскажу цену и запишу к нужному врачу — даже вечером</p>
+      <div class="chat">
+        <span class="av"><img src="assets/logo-dark.png" alt="" style="width:30px"></span>
+        <p class="bubble" id="bubble"><span class="typing" aria-label="Администратор печатает"><span></span><span></span><span></span></span></p>
       </div>
 
-      <p style="position: absolute; left: 30px; top: 230px; margin: 0; font-family: Caveat, cursive; font-size: 26px; color: #177E96; transform: rotate(-6deg)">нажмите на точку ↘</p>
+      <p class="hand" aria-hidden="true">нажмите на точку ↘</p>
     </div>
   </div>
 
-  <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 74px; background: #0B3D4A; display: flex; align-items: center; justify-content: center; gap: 56px; color: #fff; font-size: 15px">
-    <span style="display: flex; align-items: center; gap: 10px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #48F6FF"></span>Лицензированный медцентр</span>
-    <span style="display: flex; align-items: center; gap: 10px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #F2FF59"></span>Рассрочка без переплат</span>
-    <span style="display: flex; align-items: center; gap: 10px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #48F6FF"></span>Реабилитолог на дом — 4 000 ₽</span>
-    <span style="display: flex; align-items: center; gap: 10px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #F2FF59"></span>Справка для налогового вычета</span>
-    <span style="display: flex; align-items: center; gap: 10px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #48F6FF"></span>Пандус и парковка</span>
+  <div class="trust">
+    <div class="track">
+      <span>Лицензированный медцентр</span><span>Рассрочка без переплат</span><span>Реабилитолог на дом — 4 000 ₽</span><span>Справка для налогового вычета</span><span>Пандус и парковка</span><span>Принимаем взрослых и детей</span>
+      <span>Лицензированный медцентр</span><span>Рассрочка без переплат</span><span>Реабилитолог на дом — 4 000 ₽</span><span>Справка для налогового вычета</span><span>Пандус и парковка</span><span>Принимаем взрослых и детей</span>
+    </div>
   </div>
-</div>
 </div></div>
+
 <script>
-// Макет нарисован в 1440×900 — масштабируем под ширину окна
-function fit(){var k=Math.min(window.innerWidth/1440,1.6);var st=document.getElementById('stage');st.style.transform='scale('+k+')';document.getElementById('wrap').style.height=(900*k)+'px';}
-window.addEventListener('resize',fit);fit();
+(function () {
+  // Масштаб макета 1440×900 под ширину окна
+  var stage = document.getElementById('stage'), wrap = document.getElementById('wrap');
+  function fit() { var k = Math.min(window.innerWidth / 1440, 1.6); stage.style.transform = 'scale(' + k + ')'; wrap.style.height = (900 * k) + 'px'; }
+  window.addEventListener('resize', fit); fit();
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Заголовок: слова проявляются по очереди
+  var h = document.getElementById('title');
+  h.innerHTML = h.textContent.split(' ').map(function (w, i) {
+    return '<span class="w" style="animation-delay:' + (0.08 * i).toFixed(2) + 's, 0s">' + w + '</span>';
+  }).join(' ');
+
+  // «5,0» досчитывается
+  var sc = document.getElementById('score');
+  if (!reduce) { var t0 = null; requestAnimationFrame(function step(t) { if (!t0) t0 = t + 900; var p = Math.min(Math.max((t - t0) / 900, 0), 1); sc.textContent = (p * 5).toFixed(1).replace('.', ','); if (p < 1) requestAnimationFrame(step); }); }
+
+  // Данные точек — прайс клиники (ПроДокторов, 19.10.2026)
+  var AREAS = {
+    knee: { tag: 'Колено', ini: 'ХА', name: 'Хаджалов Абузар Магомедович', role: 'травматолог-ортопед · ПроДокторов 5,0', chips: ['Приём 3 000 ₽', 'PRP 10 500 ₽', 'УВТ 3 000 ₽', 'Гиалуроновая кислота 3 000 ₽'], slot: 'завтра, 16:30' },
+    back: { tag: 'Спина и шея', ini: 'КП', name: 'Куделя Павел Александрович', role: 'невролог, мануальный терапевт', chips: ['Полный приём 8 000 ₽', 'УВТ 3 000 ₽', 'ЛФК 2 500 ₽', 'Массаж спины 2 500 ₽'], slot: 'завтра, 10:00' },
+    arm: { tag: 'Плечо и кисть', ini: 'ХА', name: 'Хаджалов Абузар Магомедович', role: 'травматолог-ортопед, кистевой реабилитолог', chips: ['Приём 3 000 ₽', 'Разработка кисти 3 000 ₽', 'УВТ 3 000 ₽', 'Тейпирование 1 500 ₽'], slot: 'завтра, 11:30' },
+    foot: { tag: 'Стопа и пятка', ini: 'ХА', name: 'Хаджалов Абузар Магомедович', role: 'травматолог-ортопед', chips: ['Приём 3 000 ₽', 'УВТ 3 000 ₽', 'Стельки Formthotics 13 500 ₽'], slot: 'завтра, 16:00' }
+  };
+  var doc = document.getElementById('doc'), current = null;
+
+  function fill(a) {
+    var d = AREAS[a];
+    document.getElementById('d-tag').textContent = d.tag;
+    document.getElementById('d-ini').textContent = d.ini;
+    document.getElementById('d-name').textContent = d.name;
+    document.getElementById('d-role').textContent = d.role;
+    document.getElementById('d-slot').textContent = d.slot;
+    document.getElementById('d-chips').innerHTML = d.chips.map(function (c) { return '<span class="chip">' + c + '</span>'; }).join('');
+  }
+  function select(a) {
+    if (a === current) return;
+    current = a;
+    document.querySelectorAll('[data-area]').forEach(function (el) { el.classList.toggle('on', el.dataset.area === a); });
+    document.getElementById('spine').classList.toggle('on', a === 'back');
+    if (reduce) { fill(a); return; }
+    doc.classList.add('swap');
+    setTimeout(function () { fill(a); doc.classList.remove('swap'); }, 220);
+  }
+  fill('knee'); select('knee');
+
+  // Автопоказ точек, пока человек сам не нажал
+  var order = ['knee', 'back', 'arm', 'foot'], idx = 0, auto = reduce ? null : setInterval(function () { idx = (idx + 1) % order.length; select(order[idx]); }, 3800);
+  function stopAuto() { if (auto) { clearInterval(auto); auto = null; } }
+  document.querySelectorAll('.hot, .call').forEach(function (el) {
+    el.addEventListener('click', function () { stopAuto(); select(el.dataset.area); });
+    el.addEventListener('mouseenter', function () { stopAuto(); select(el.dataset.area); });
+  });
+
+  // Голова слегка поворачивается за курсором
+  var head = document.getElementById('head'), fig = document.getElementById('figure');
+  if (!reduce) document.addEventListener('mousemove', function (e) {
+    var r = fig.getBoundingClientRect(); var cx = r.left + r.width / 2, cy = r.top + r.height * 0.1;
+    var ang = Math.max(-12, Math.min(12, (e.clientX - cx) / 30));
+    var tilt = Math.max(-3, Math.min(3, (e.clientY - cy) / 120));
+    head.style.transform = 'rotate(' + ang.toFixed(1) + 'deg) translateY(' + tilt.toFixed(1) + 'px)';
+  });
+
+  // Чат: «печатает…», потом сообщение
+  setTimeout(function () {
+    document.getElementById('bubble').innerHTML = '<span class="msg">Здравствуйте! Подскажу цену и запишу к нужному врачу — даже вечером</span>';
+  }, reduce ? 0 : 2600);
+})();
 </script>
 </body>
 </html>
